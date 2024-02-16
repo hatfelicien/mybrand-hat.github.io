@@ -16,12 +16,14 @@
             </header>
             <div class="holder">
                 <center>Admin Login</center>
-                <form>
-                    <label>Username</label>
+                <form method="post" name="form" onsubmit="validateit()">
+                    <div id="email_error">Please fill up your Email or Phone</div>
+                    <label>Username</label>                  
                     <input type="text" name="" placeholder="enter your username or email" class="ln">
                     <label>Password</label>
                     <input type="password" name="" placeholder="enter your password" class="lp">
-                    <a href="dashboard.html" class="btn">Login</a>
+                    <div id="pass_error">Please fill up your Password</div>
+                    <button type="submit">Login</button>
                 </form>
             </div>
         </div>
