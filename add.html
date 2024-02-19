@@ -8,38 +8,44 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 </head>
     <body>
-        <header class="header2">
-            <div class="left1"><center><h3>My-Brand</h3></center></div>
-            <div class="right1">
-             <div class="usericon">
-              <span class="log"><a href="login.html">Logout</a></span><img src="images/user.png">
-             </div>
-            </div>
-        </header>
+        <header>
+            <h1>Admin Dashboard</h1>
+          </header>
         
-        <section class="sidebar1">
-        <ul>
-          <li><a href="dashboard.html">Dashboard</a></li>
-          <li><a href="comments.html">Comment</a></li>
-          <li><a href="message.html">Message</a></li>
-          <li><a href="article.html">Article</a></li>
-          <li><a href="add.html">Add Article</a></li>
-        </ul>
-        </section>
-        
+          <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="comments.html">Comment</a>
+            <a href="message.html">Messages</a>
+            <a href="article.html">Article</a>
+            <a href="add.html">Add Article</a>
+            <a href="login.html">Logout</a>
+          </nav>
+          <div class="content">
+            <div class="card">
         <main class="main1">
           <h3>Add new article here!</h3>
 
 <div class="cont">
-  <form action="/action_page.php">
-    <input type="text" id="title" name="title" placeholder="title for the post">
-    <input type="text" id="tag" name="tags" placeholder="enter tags">
-    <input type="file" id="img" name="img" placeholder="enter tags">
-    <textarea>enter your content</textarea>
-    <input type="text" id="img" name="img" placeholder="enter references">
-    <input type="submit" value="Submit">
-  </form>
-</div>
+    <form action="article.html" onsubmit="return validateForm()">
+        <input type="text" id="title" name="title" placeholder="Title for the post">
+        <div id="errorTitle" class="error"></div>
 
+        <input type="text" id="tag" name="tags" placeholder="Enter tags">
+        <div id="errorTag" class="error"></div>
+
+        <input type="file" id="img" name="img" accept="image/*">
+        <div id="errorImg" class="error"></div>
+
+        <textarea id="content" placeholder="Enter your content" oninput="updateCharCount()"></textarea>
+        <div id="errorContent" class="error"></div>
+        <div id="charCount">Character Count: 0</div>
+
+        <input type="text" id="references" name="references" placeholder="Enter references">
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+        </main>
+        <script src="js/login.js"></script>
     </body>
 </html>

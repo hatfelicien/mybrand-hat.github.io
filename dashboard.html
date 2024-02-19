@@ -1,30 +1,27 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="fontawesome-free-6.2.1-web\css\all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-    <link rel="stylesheet" href="css/dash.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+<link rel="stylesheet" href="./css/dash.css">
 </head>
-    <body>
-        <header class="header2">
-            <div class="left1"><center><h3>My-Brand</h3></center></div>
-            <div class="right1">
-             <div class="usericon">
-              <span class="log"><a href="login.html">Logout</a></span><img src="images/user.png">
-             </div>
-            </div>
-        </header>
-        
-        <section class="sidebar1">
-          <ul>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="comments.html">Comment</a></li>
-            <li><a href="message.html">Message</a></li>
-            <li><a href="article.html">Article</a></li>
-            <li><a href="add.html">Add Article</a></li>
-          </ul>
-        </section>
-        
-        <main class="main1">
+<body>
+
+  <header>
+    <h1>Admin Dashboard</h1>
+  </header>
+
+  <nav>
+    <a href="#">Dashboard</a>
+    <a href="#">Users</a>
+    <a href="#">Products</a>
+    <a href="#">Settings</a>
+    <a href="#">Logout</a>
+  </nav>
+
+  <div class="content">
+    <div class="card">
                             <div class="row">
                         <div class="column">
                           <div class="card">
@@ -38,17 +35,61 @@
                           <div class="card">
                             <img src="images/article.png">
                             <h3>message</h3>
-                            <p>25+ unread message</p>
+                            <p>Total Messages: <span id="messageCounter">0</span></p>
+                            
                           </div>
                         </div>
                         
-                        <div class="column">
+                        <div class="columnin">
                           <div class="card">
                             <img src="images/message.png">
-                            <h3>css</h3>
-                            <p>167 Articles</p>
+                            <h3>ARTICLES</h3>
+                            <p id="articleCount"></p>
                           </div>
                         </div>
-        </main>
-    </body>
+    </div>
+
+
+
+  <footer>
+    &copy; 2024 Admin Dashboard
+  </footer>
+
+    <script>
+const storedData = localStorage.getItem('postData');
+
+// Check if there is any stored data
+if (storedData) {
+    // Parse the stored data (assuming it's an array)
+    const articles = JSON.parse(storedData);
+
+    // Get the count of articles
+    const articleCount = articles.length;
+
+    // Display the count in the HTML
+    document.getElementById('articleCount').innerHTML = `Total Articles: ${articleCount}`;
+} else {
+    // Display a message if no articles found
+    document.getElementById('articleCount').innerHTML = 'No articles found in localStorage.';
+}
+      function updateMessageList() {
+        var messages = JSON.parse(localStorage.getItem("messages")) || [];
+        var messageListContainer = document.getElementById("messageList");
+        var messageCounter = document.getElementById("messageCounter");
+  
+        messageCounter.innerText = messages.length;
+  
+        messageListContainer.innerHTML = "";
+  
+        for (var i = 0; i < messages.length; i++) {
+          var messageItem = document.createElement("div");
+          messageItem.innerHTML = "<p><strong>Name:</strong> " + messages[i].name + "</p>" +
+                                  "<p><strong>Email:</strong> " + messages[i].email + "</p>" +
+                                  "<p><strong>Message:</strong> " + messages[i].message + "</p>" +
+                                  "<button onclick='deleteMessage(" + i + ")'>Delete</button>";
+          messageListContainer.appendChild(messageItem);
+        }
+      }
+    </script>
+
 </html>

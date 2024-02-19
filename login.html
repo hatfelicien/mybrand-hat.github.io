@@ -1,10 +1,10 @@
 <html>
     <head>
         <title>Admin login</title>
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/signin.css">
     </head>
     <body>
-        <div class="containerlg">
+       <!-- <div class="containerlg">
             <header>
                 <a href="#" class="logo">HAtfeli designer</a>
         
@@ -13,19 +13,28 @@
                 <ul class="navbar">
                     <li><a href="index.html">Home</a></li>
                 </ul>
-            </header>
+            </header>-->
             <div class="holder">
                 <center>Admin Login</center>
-                <form method="post" name="form" onsubmit="validateit()">
-                    <div id="email_error">Please fill up your Email or Phone</div>
-                    <label>Username</label>                  
-                    <input type="text" name="" placeholder="enter your username or email" class="ln">
-                    <label>Password</label>
-                    <input type="password" name="" placeholder="enter your password" class="lp">
-                    <div id="pass_error">Please fill up your Password</div>
-                    <button type="submit">Login</button>
+                
+                <form action="" method="get" id="form" class="form">
+                    <div>
+                        <label>name</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+                    <div id="nameerror"></div>
+                    <div>
+                        <label>Password</label>
+                        <input type="password" id="password" name="password">
+                    </div>
+                    <div id="error"></div>
+                    <button type="submit">Submit</button><br>
+                    
+                    <a href="signin.html">Signin if you dont have account</a>
                 </form>
+                
             </div>
         </div>
     </body>
+    <script src="js/login.js"></script>
 </html>

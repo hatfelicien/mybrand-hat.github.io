@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>myblog</title>
@@ -8,114 +8,83 @@
     <!-- Font awesome icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/blog.css">
-  </head>
-  <body>
+</head>
+<body>
 
     <!-- header -->
     <header>
-      <nav class = "navbar">
-        <div class = "container">
-            <a href = "index.html" class = "navbar-brand">hatfeli</a>
-          <div class = "navbar-nav">
-            <a href = "index.html">back to home</a>
-          </div>
-        </div>
-      </nav>
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="navbar-brand">hatfeli</a>
+                <div class="navbar-nav">
+                    <a href="index.html">back to home</a>
+                </div>
+            </div>
+        </nav>
     </header>
     <!-- end of header -->
+    
     <!-- blog -->
-    <section class = "blog" id = "blog">
-      <div class = "container">
-        <div class = "title">
-          <h2>Welcome to my Blog</h2>
-            <div class="seb">
-            <center><input type="text"><button>Search</button></center>
-          </div>
+    <section class="blog" id="blog">
+        <div class="container">
+            <div class="title">
+                <h2>Welcome to my Blog</h2>
+                <div class="seb">
+                    <center><input type="text"><button>Search</button></center>
+                </div>
+            </div>
+            <div class="blog-content" id="blogPosts"></div>
         </div>
-        <div class = "blog-content">
-          <!-- item -->
-          <div class = "blog-item">
-            <div class = "blog-img">
-              <img src = "images/blog-p-1.jpg" alt = "">
-            </div>
-            <div class = "blog-text">
-              <h2>Code and Coffee: A Day in the Life of a Workshop-Weary Developer</h2>
-                <span>20 January, 2020</span>
-              <a href = "blogpost.html">Read More</a>
-            </div>
-          </div>
-          <!-- end of item -->
-          <!-- item -->
-          <div class = "blog-item">
-            <div class = "blog-img">
-              <img src = "images/blog-p-2.jpg" alt = "">
-            </div>
-            <div class = "blog-text">
-              <h2>Code and Coffee: A Day in the Life of a Workshop-Weary Developer</h2>
-                <span>20 January, 2020</span>
-                <a href = "blogpost.html">Read More</a>
-            </div>
-          </div>
-          <!-- end of item -->
-          <!-- item -->
-          <div class = "blog-item">
-            <div class = "blog-img">
-              <img src = "images/blog-p-3.jpg" alt = "">
-            </div>
-            <div class = "blog-text">
-              <h2>Code and Coffee: A Day in the Life of a Workshop-Weary Developer</h2>
-              <span>20 January, 2020</span>
-              <a href = "blogpost.html">Read More</a>
-            </div>
-          </div>
-          <!-- end of item -->
-          <!-- item -->
-          <div class = "blog-item">
-            <div class = "blog-img">
-              <img src = "images/blog-p-3.jpg" alt = "">
-            </div>
-            <div class = "blog-text">
-              <h2>Code and Coffee: A Day in the Life of a Workshop-Weary Developer</h2>
-              <span>20 January, 2020</span>
-              <a href = "blogpost.html">Read More</a>
-            </div>
-          </div>
-          <!-- end of item -->
-          <!-- item -->
-          <div class = "blog-item">
-            <div class = "blog-img">
-              <img src = "images/blog-p-2.jpg" alt = "">
-            </div>
-            <div class = "blog-text">
-              <h2>Code and Coffee: A Day in the Life of a Workshop-Weary Developer</h2>
-              <span>20 January, 2020</span>
-              <a href = "blogpost.html">Read More</a>
-            </div>
-          </div>
-          <!-- end of item -->
-          <!-- item -->
-          <div class = "blog-item">
-            <div class = "blog-img">
-              <img src = "images/blog-p-1.jpg" alt = "">
-            </div>
-            <div class = "blog-text">
-              <h2>Code and Coffee: A Day in the Life of a Workshop-Weary Developer</h2>
-              <span>20 January, 2020</span>
-              <a href = "blogpost.html">Read More</a>
-            </div>
-          </div>
-          <!-- end of item -->
-        </div>
-      </div>
     </section>
     <!-- end of blog -->
+    
     <!-- footer -->
     <footer>
-      <div class = "social-links">
-        <a href = "#"><i class = "fab fa-facebook-f"></i></a>
-        <a href = "#"><i class = "fab fa-twitter"></i></a>
-      </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
     </footer>
     <!-- end of footer -->
-  </body>
+
+    <script>
+      function displayBlogPosts() {
+          const storedData = JSON.parse(localStorage.getItem('postData')) || [];
+          const blogPostsDiv = document.getElementById('blogPosts');
+  
+          if (storedData.length > 0) {
+              for (let i = 0; i < storedData.length; i++) {
+                  const postData = storedData[i];
+  
+                  // Create HTML elements to display the blog post
+                  const blogPostDiv = document.createElement('div');
+                  blogPostDiv.classList.add('blog-item');
+  
+                  // Check if date property is defined
+                  const postDate = postData.date ? postData.date : 'No date available';
+  
+                  blogPostDiv.innerHTML = `
+                      <div class="blog-img">
+                          <img src="${postData.img}" alt="${postData.title}">
+                      </div>
+                      <div class="blog-text">
+                          <h2>${postData.title}</h2>
+                          <span>${postDate}</span>
+                          <!-- Update the href attribute to include the post ID -->
+                          <a href="blogpost.html?id=${i}">Read More</a>
+                      </div>
+                  `;
+  
+                  // Append the blogPostDiv to the blogPostsDiv
+                  blogPostsDiv.appendChild(blogPostDiv);
+              }
+          } else {
+              blogPostsDiv.innerHTML = '<p>No blog posts available.</p>';
+          }
+      }
+  
+      // Call the function to display the blog posts
+      displayBlogPosts();
+  </script>
+</body>
 </html>

@@ -24,6 +24,7 @@
             <li><a href="blog.html">blog</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
         </ul>
     </header>
     <!-- still trying -->
@@ -207,20 +208,23 @@ here’s a bit more about me</p>
 In time you want to hire me or cantact me for bussiness my door is always open for you;
  Here there are ways to reach out to me ; fill free to click one of them.You will get response in less than 24 hours.
  Your Sincerely;</p>
-      <form action="#">
-        <div class="input-box">
-          <input type="text" placeholder="Enter your name">
-        </div>
-        <div class="input-box">
-          <input type="text" placeholder="Enter your email">
-        </div>
-        <div class="input-box message-box">
-          <textarea placeholder="Enter your message"></textarea>
-        </div>
-        <div class="button">
-          <input type="button" value="Send Now" >
-        </div>
-      </form>
+ <form id="myForm">
+  <div class="input-box">
+      <input type="text" id="name" placeholder="Enter your name">
+      <span id="nameError" class="error"></span>
+  </div>
+  <div class="input-box">
+      <input type="text" id="email" placeholder="Enter your email">
+      <span id="emailError" class="error"></span>
+  </div>
+  <div class="input-box message-box">
+      <textarea id="message" placeholder="Enter your message"></textarea>
+      <span id="messageError" class="error"></span>
+  </div>
+  <div class="button">
+      <input type="button" value="Send Now" onclick="validateForm()">
+  </div>
+</form>
     </div>
     </div>
   </div>
@@ -237,5 +241,63 @@ In time you want to hire me or cantact me for bussiness my door is always open f
 </div>
 </div>
 <script src="js/script.js"></script>
+<script>
+  function validateForm() {
+      // Validate email using regular expression
+      var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      var emailInput = document.getElementById('email');
+      var emailError = document.getElementById('emailError');
+
+      // Validate name
+      var nameInput = document.getElementById('name');
+      var nameError = document.getElementById('nameError');
+
+      // Validate message
+      var messageInput = document.getElementById('message');
+      var messageError = document.getElementById('messageError');
+
+      // Reset previous error messages
+      nameError.textContent = '';
+      emailError.textContent = '';
+      messageError.textContent = '';
+
+      // Check name
+      if (nameInput.value.trim() === '') {
+          nameError.textContent = 'Name is required';
+          return;
+      }
+
+      // Check email
+      if (!emailRegex.test(emailInput.value)) {
+          emailError.textContent = 'Please enter a valid email address.';
+          return;
+      }
+
+      // Check message
+      if (messageInput.value.trim() === '') {
+          messageError.textContent = 'Message is required';
+          return;
+      }
+
+      // Get form data
+      var formData = {
+          name: nameInput.value,
+          email: emailInput.value,
+          message: messageInput.value
+      };
+
+      // Get existing contact data from local storage
+      var existingContacts = JSON.parse(localStorage.getItem('contacts')) || [];
+
+      // Add new contact to the array
+      existingContacts.push(formData);
+
+      // Save the updated contacts array to local storage
+      localStorage.setItem('contacts', JSON.stringify(existingContacts));
+
+      alert('Form submitted successfully!');
+      document.getElementById('myForm').reset();
+  }
+</script>
   </body>
 </html>

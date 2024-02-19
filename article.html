@@ -1,60 +1,148 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="fontawesome-free-6.2.1-web\css\all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-    <link rel="stylesheet" href="css/dash.css">
-    <link rel="stylesheet" href="fontawesome-free-6.2.1-web\css\all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+<link rel="stylesheet" href="./css/dash.css">
 </head>
-    <body>
-        <header class="header2">
-            <div class="left1"><center><h3>My-Brand</h3></center></div>
-            <div class="right1">
-             <div class="usericon">
-              <span class="log"><a href="login.html">Logout</a></span><img src="images/user.png">
-             </div>
-            </div>
-        </header>
-        
-        <section class="sidebar1">
-        <ul>
-          <li><a href="dashboard.html">Dashboard</a></li>
-          <li><a href="comments.html">Comment</a></li>
-          <li><a href="message.html">Message</a></li>
-          <li><a href="article.html">Article</a></li>
-          <li><a href="add.html">Add Article</a></li>
-        </ul>
-        </section>
-        
-        <main class="main1">
-          <center><h1>Blog Articles</h1></center>
-          <table id="customers">
+<body>
 
-            <tr>
-              <td colspan="2">Code and Coffee: A Day in the Life of a Workshop-Weary Developer</td>
-              <td>January,2024</td>
-              <td>In the heart of the city, where the rhythmic hum of keyboards blends with the aromatic notes of freshly ground coffee, there exists a haven for developers—a workshop filled with lines of code, </td>
-              <td><span class="del">Delete</span><span class="up">update</span></td>
-            </tr>
-            <tr>
-              <td colspan="2">Code and Coffee: A Day in the Life of a Workshop-Weary Developer</td>
-              <td>January,2024</td>
-              <td>In the heart of the city, where the rhythmic hum of keyboards blends with the aromatic notes of freshly ground coffee, there exists a haven for developers—a workshop filled with lines of code, </td>
-              <td><span class="del">Delete</span><span class="up">update</span></td>
-            </tr>
-            <tr>
-              <td colspan="2">Code and Coffee: A Day in the Life of a Workshop-Weary Developer</td>
-              <td>January,2024</td>
-              <td>In the heart of the city, where the rhythmic hum of keyboards blends with the aromatic notes of freshly ground coffee, there exists a haven for developers—a workshop filled with lines of code, </td>
-              <td><span class="del">Delete</span><span class="up">update</span></td>
-            </tr>
-            <tr>
-              <td colspan="2">Code and Coffee: A Day in the Life of a Workshop-Weary Developer</td>
-              <td>January,2024</td>
-              <td>In the heart of the city, where the rhythmic hum of keyboards blends with the aromatic notes of freshly ground coffee, there exists a haven for developers—a workshop filled with lines of code, </td>
-              <td><span class="del">Delete</span><span class="up">update</span></td>
-            </tr>
-          </table>
+  <header>
+    <h1>Admin Dashboard</h1>
+  </header>
+
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="comments.html">Comment</a>
+    <a href="message.html">Messages</a>
+    <a href="article.html">Article</a>
+    <a href="add.html">Add Article</a>
+    <a href="login.html">Logout</a>
+  </nav>
+
+  <div class="content">
+    <div class="card">
+        <h1>Articles on your blog</h1>
+        <div id="displayData"></div>
+
+        <div id="overlay"></div>
+        <div id="updateForm">
+            <h2>Update Post</h2>
+            <label for="updateTitle">Title:</label>
+            <input type="text" id="updateTitle">
+    
+            <label for="updateTags">Tags:</label>
+            <input type="text" id="updateTags">
+    
+            <label for="updateContent">Content:</label>
+            <textarea id="updateContent"></textarea>
+    
+            <button onclick="updatePost()">Update</button>
+            <button onclick="closeUpdateForm()">Cancel</button>
+        </div>
+        </div>
+        <footer>
+          &copy; 2024 Admin Dashboard
+        </footer>
     </body>
+    <script>
+        function retrieveDataFromLocalStorage() {
+            const storedData = JSON.parse(localStorage.getItem('postData')) || [];
+            const displayDataDiv = document.getElementById('displayData');
+
+            if (storedData.length > 0) {
+                for (let i = 0; i < storedData.length; i++) {
+                    const postData = storedData[i];
+
+                    // Create HTML elements to display the data
+                    const postDiv = document.createElement('div');
+                    postDiv.innerHTML = `
+                        <h3>Title: ${postData.title}</h3>
+                        <p>Tags: ${postData.tag}</p>
+                        <p>Image: ${postData.img}</p>
+                        <p>Content: ${postData.content}</p>
+                        <p>References: ${postData.references}</p>
+                        <button onclick="deletePost(${i})">Delete</button>
+                        <button onclick="openUpdateForm(${i})">Update</button>
+                        <hr>
+                    `;
+
+                    // Append the postDiv to the displayDataDiv
+                    displayDataDiv.appendChild(postDiv);
+                }
+            } else {
+                displayDataDiv.innerHTML = '<p>No data stored in local storage.</p>';
+            }
+        }
+
+        function deletePost(index) {
+            const storedData = JSON.parse(localStorage.getItem('postData')) || [];
+
+            if (storedData.length > 0) {
+                // Remove the post at the specified index
+                storedData.splice(index, 1);
+
+                // Save the updated data back to local storage
+                localStorage.setItem('postData', JSON.stringify(storedData));
+
+                // Refresh the display
+                location.reload();
+            }
+        }
+
+        function openUpdateForm(index) {
+            const storedData = JSON.parse(localStorage.getItem('postData')) || [];
+            const updateForm = document.getElementById('updateForm');
+            const overlay = document.getElementById('overlay');
+
+            // Populate the update form with the data of the selected post
+            document.getElementById('updateTitle').value = storedData[index].title;
+            document.getElementById('updateTags').value = storedData[index].tag;
+            document.getElementById('updateContent').value = storedData[index].content;
+
+            // Display the update form and overlay
+            updateForm.style.display = 'block';
+            overlay.style.display = 'block';
+
+            // Store the index of the post being updated in a data attribute
+            updateForm.setAttribute('data-index', index);
+        }
+
+        function updatePost() {
+            const storedData = JSON.parse(localStorage.getItem('postData')) || [];
+            const updateForm = document.getElementById('updateForm');
+            const overlay = document.getElementById('overlay');
+
+            // Retrieve the index of the post being updated
+            const index = parseInt(updateForm.getAttribute('data-index'));
+
+            // Update the post data with the values from the form
+            storedData[index].title = document.getElementById('updateTitle').value;
+            storedData[index].tag = document.getElementById('updateTags').value;
+            storedData[index].content = document.getElementById('updateContent').value;
+
+            // Save the updated data back to local storage
+            localStorage.setItem('postData', JSON.stringify(storedData));
+
+            // Close the update form and overlay
+            updateForm.style.display = 'none';
+            overlay.style.display = 'none';
+
+            // Refresh the display
+            location.reload();
+        }
+
+        function closeUpdateForm() {
+            const updateForm = document.getElementById('updateForm');
+            const overlay = document.getElementById('overlay');
+
+            // Close the update form and overlay
+            updateForm.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+
+        // Call the function to retrieve and display the data
+        retrieveDataFromLocalStorage();
+    </script>
 </html>
