@@ -1,40 +1,28 @@
-<html>
-    <head>
-        <title>Admin login</title>
-        <link rel="stylesheet" href="css/signin.css">
-    </head>
-    <body>
-       <!-- <div class="containerlg">
-            <header>
-                <a href="#" class="logo">HAtfeli designer</a>
-        
-                <div class="bx bx-menu" id="menu-icon"></div>
-        
-                <ul class="navbar">
-                    <li><a href="index.html">Home</a></li>
-                </ul>
-            </header>-->
-            <div class="holder">
-                <center>Admin Login</center>
-                
-                <form action="" method="get" id="form" class="form">
-                    <div>
-                        <label>name</label>
-                        <input type="text" id="name" name="name">
-                    </div>
-                    <div id="nameerror"></div>
-                    <div>
-                        <label>Password</label>
-                        <input type="password" id="password" name="password">
-                    </div>
-                    <div id="error"></div>
-                    <button type="submit">Submit</button><br>
-                    
-                    <a href="signin.html">Signin if you dont have account</a>
-                </form>
-                
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/signin.css">
+</head>
+<body>
+    <form action="" method="post" id="loginForm">
+        <h2>Login</h2>
+        <div>
+            <label for="loginEmail">Email:</label>
+            <input type="email" id="loginEmail" name="loginEmail">
+            <div id="errorLoginEmail" class="error"></div>
         </div>
-    </body>
+        <div>
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" name="loginPassword">
+            <div id="errorLoginPassword" class="error"></div>
+        </div>
+        <button type="button" onclick="validateLogin()">Login</button><br>
+        <a href="signin.html">Create account</a>
+    </form>
+
     <script src="js/login.js"></script>
+</body>
 </html>

@@ -13,11 +13,12 @@
   </header>
 
   <nav>
-    <a href="#">Dashboard</a>
-    <a href="#">Users</a>
-    <a href="#">Products</a>
-    <a href="#">Settings</a>
-    <a href="#">Logout</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="comments.html">Comment</a>
+    <a href="message.html">Messages</a>
+    <a href="article.html">Article</a>
+    <a href="add.html">Add Article</a>
+    <a href="login.html">Logout</a>
   </nav>
 
   <div class="content">
@@ -35,7 +36,7 @@
                           <div class="card">
                             <img src="images/article.png">
                             <h3>message</h3>
-                            <p>Total Messages: <span id="messageCounter">0</span></p>
+                            <p id="messageCount">Total Messages: <span id="count">0</span></p>
                             
                           </div>
                         </div>
@@ -72,24 +73,22 @@ if (storedData) {
     // Display a message if no articles found
     document.getElementById('articleCount').innerHTML = 'No articles found in localStorage.';
 }
-      function updateMessageList() {
-        var messages = JSON.parse(localStorage.getItem("messages")) || [];
-        var messageListContainer = document.getElementById("messageList");
-        var messageCounter = document.getElementById("messageCounter");
-  
-        messageCounter.innerText = messages.length;
-  
-        messageListContainer.innerHTML = "";
-  
-        for (var i = 0; i < messages.length; i++) {
-          var messageItem = document.createElement("div");
-          messageItem.innerHTML = "<p><strong>Name:</strong> " + messages[i].name + "</p>" +
-                                  "<p><strong>Email:</strong> " + messages[i].email + "</p>" +
-                                  "<p><strong>Message:</strong> " + messages[i].message + "</p>" +
-                                  "<button onclick='deleteMessage(" + i + ")'>Delete</button>";
-          messageListContainer.appendChild(messageItem);
-        }
-      }
+// Function to count all messages in local storage
+function countMessages() {
+    // Get existing contact data from local storage
+    var existingContacts = JSON.parse(localStorage.getItem('contacts')) || [];
+
+    // Get the count element
+    var countElement = document.getElementById('count');
+
+    // Display the total number of messages
+    countElement.textContent = existingContacts.length;
+}
+
+// Call the function to count messages when the page loads
+window.onload = function () {
+    countMessages();
+};
     </script>
 
 </html>

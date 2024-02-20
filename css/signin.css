@@ -1,22 +1,4 @@
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-                        /* Linear gradient from top to bottom, transitioning from #3498db to #2c3e50 */
-                        background: linear-gradient(to bottom, #3498db, #2c3e50);
-                        /* Ensure the gradient covers the entire viewport */
-                        height: 100vh;
-                        margin: 0;
-                        /* Additional styling to center text */
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 24px;
-        }
+
         form {
             background-color: #fff;
             padding: 50px;
@@ -51,9 +33,6 @@
             cursor: pointer;
         }
 
-        button:hover {
-            background-color: #45a049;
-        }
         form a{
             color: teal;
             text-decoration: none;

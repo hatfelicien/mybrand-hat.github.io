@@ -54,8 +54,8 @@
                       <p><strong>Name:</strong> ${contact.name}</p>
                       <p><strong>Email:</strong> ${contact.email}</p>
                       <p><strong>Message:</strong> ${contact.message}</p>
-                      <button onclick="deleteContact(${i})">Delete</button>
-                      <button onclick="replyToContact('${contact.email}')">Reply</button>
+                      <button class="del" onclick="deleteContact(${i})">Delete</button>
+                      <button class="up" onclick="replyToContact('${contact.email}')">Reply</button>
                       <hr>
                   `;
 
