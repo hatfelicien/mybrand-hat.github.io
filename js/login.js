@@ -1,9 +1,9 @@
 function validateLogin() {
-    // Validation logic here
+    // Validation datas
     let loginEmail = document.getElementById("loginEmail").value;
     let loginPassword = document.getElementById("loginPassword").value;
 
-    // Basic validation
+    //  validation
     if (loginEmail.trim() === '' || loginPassword.trim() === '') {
         alert("All fields are required");
         return;
@@ -31,7 +31,7 @@ function validateLogin() {
     if (loggedInUser) {
         alert("Login successful!");
         
-        // Redirect to the dashboard
+        // Redirect to the dashboard after successful login
         window.location.href = "dashboard.html";
     } else {
         alert("Invalid email or password");
