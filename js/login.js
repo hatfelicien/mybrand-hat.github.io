@@ -174,7 +174,7 @@ function validateLogin() {
         // Redirect to the dashboard after successful login
         window.location.href = "dashboard.html";
     } else {
-        alert("Invalid email or password");
+        document.getElementById("errormsg").innerHTML = "Invalid email or password";
     }
 }
 
