@@ -7,8 +7,16 @@
     <link rel="stylesheet" href="css/signin.css">
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a>Hatfeli Designer</a></li>
+            <li style="float:right"><a class="active" href="#about">back to Home</a></li>
+          </ul>
+          </nav>
+    <div class="my-container">
     <form action="" method="post" id="form">
         <h2>Sign In</h2>
+        <center><h3 id="errormsg" class="error"></h3></center>
         <div>
             <label for="name">Username:</label>
             <input type="text" id="name" name="name">
@@ -32,7 +40,7 @@
         <button type="button" onclick="validateForm()">Sign In</button><br>
         <a href="login.html">Back to login</a>
     </form>
-
+</div>
     <script src="js/signup.js"></script>
 </body>
 </html>

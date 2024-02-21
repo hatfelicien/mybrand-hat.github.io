@@ -7,8 +7,16 @@
     <link rel="stylesheet" href="css/signin.css">
 </head>
 <body>
+    <nav>
+    <ul>
+        <li><a>Hatfeli Designer</a></li>
+        <li style="float:right"><a class="active" href="#about">back to Home</a></li>
+      </ul>
+      </nav>
+    <div class="my-container">
     <form action="" method="post" id="loginForm">
         <h2>Login</h2>
+        <center><h3 id="errormsg" class="error"></h3></center>
         <div>
             <label for="loginEmail">Email:</label>
             <input type="email" id="loginEmail" name="loginEmail">
@@ -22,7 +30,7 @@
         <button type="button" onclick="validateLogin()">Login</button><br>
         <a href="signin.html">Create account</a>
     </form>
-
+</div>
     <script src="js/login.js"></script>
 </body>
 </html>

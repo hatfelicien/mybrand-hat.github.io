@@ -7,12 +7,14 @@ function validateForm() {
 
     // Basic validation (you can enhance this as needed)
     if (name.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
-        alert("All fields are required");
+        
+        document.getElementById("errormsg").innerHTML ="All fields are required";
         return;
+
     }
 
     if (password !== confirmPassword) {
-        alert("Passwords do not match");
+        document.getElementById("errorConfirmPassword").innerHTML = "password do not match";
         return;
     }
 

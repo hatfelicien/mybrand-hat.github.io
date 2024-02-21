@@ -1,6 +1,16 @@
 
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .my-container{
+            width: 60%;
+            margin: 5% auto;
+            
+        }
         form {
-            background-color: #fff;
+            background-color: #F1EAEA;
             padding: 50px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -38,3 +48,30 @@
             text-decoration: none;
             font-weight: bold;
         }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+          }
+          
+          li {
+            float: left;
+          }
+          
+          li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+          }
+          
+          li a:hover:not(.active) {
+            background-color: white;
+          }
+          
+          .active {
+            background-color: #45A2DB;
+          }
