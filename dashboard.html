@@ -18,45 +18,44 @@
     <a href="message.html">Messages</a>
     <a href="article.html">Article</a>
     <a href="add.html">Add Article</a>
+    <a href="subscribers.html">Subscribers</a>
     <a href="login.html">Logout</a>
   </nav>
 
   <div class="content">
     <div class="card">
-                            <div class="row">
-                        <div class="column">
-                          <div class="card2">
-                            <img src="images/comments.png">
-                            <h3>comment</h3>
-                            <p>4 unread comments</p>
-                          </div>
-                        </div>
-                      
-                        <div class="column">
-                          <div class="card2">
-                            <img src="images/article.png">
-                            <h3>message</h3>
-                            <p id="messageCount">Total Messages: <span id="count">0</span></p>
-                            
-                          </div>
-                        </div>
-                        
-                        <div class="column">
-                          <div class="card2">
-                            <img src="images/message.png">
-                            <h3>ARTICLES</h3>
-                            <p id="articleCount"></p>
-                          </div>
-                        </div>
+      <div class="row">
+        <div class="column">
+          <div class="card2">
+            <img src="images/comments.png">
+            <h3>comment</h3>
+            <div id="commentCounter"></div>
+          </div>
+        </div>
+      
+        <div class="column">
+          <div class="card2">
+            <img src="images/article.png">
+            <h3>message</h3>
+            <p id="messageCount">Total Messages: <span id="count">0</span></p>
+            
+          </div>
+        </div>
+        
+        <div class="column">
+          <div class="card2">
+            <img src="images/message.png">
+            <h3>ARTICLES</h3>
+            <p id="articleCount"></p>
+          </div>
+        </div>
     </div>
-
-
-
+    </div></div>
   <footer>
     &copy; 2024 Admin Dashboard
   </footer>
 
-    <script>
+<script>
 const storedData = localStorage.getItem('postData');
 
 // Check if there is any stored data
@@ -88,6 +87,19 @@ function countMessages() {
 // Call the function to count messages when the page loads
 window.onload = function () {
     countMessages();
+};
+
+// Check if local storage has comments data
+let commentsList = JSON.parse(localStorage.getItem("comments")) || [];
+
+// Display comment counter
+let commentCounter = document.getElementById("commentCounter");
+commentCounter.textContent = `Total Comments: ${commentsList.length}`;
+
+// Navigate to the admin dashboard
+let goToAdminDashboard = document.getElementById("goToAdminDashboard");
+goToAdminDashboard.onclick = function () {
+  window.location.href = "admin_dashboard.html";
 };
     </script>
 

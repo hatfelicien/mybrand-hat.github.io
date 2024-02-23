@@ -96,6 +96,96 @@ body {
 .icon{
   width: 30px;
 }
+.bimg{
+  width: 60%;
+}
+#likeBtn, #commentBtn {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#commentsSection {
+    margin-top: 20px;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #ccc; /* Placeholder color */
+}
+
+#commentForm {
+    margin-top: 20px;
+}
+#commentForm {
+    margin-top: 20px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#commentForm form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    background-color: #45A2DB;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1c76ad;
+}
+
+/* Optional: Style for the comment section */
+#commentsSection {
+    margin-top: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #ccc; /* Placeholder color */
+}
+
 /* Footer */
 .footer {
     padding: 20px;
@@ -130,94 +220,148 @@ body {
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-        <div class="blg-header">
-          <h1>What is an array? a beginner guide to python arrays</h1><hr><br><br>
-        <div class="blogger">
-                          <p>It was simple, because we had to store just five integer numbers. Now let's assume we have to store 5000 integer numbers. Are we going to use 5000 variables?
 
-                To handle such situations, almost all the programming languages provide a concept called array. An array is a data structure, which can store a fixed-size collection of elements of the same data type. An array is used to store a collection of data, but it is often more useful to think of an array as a collection of variables of the same type.
+    <!-- blog post content -->
+    <section class="blog-post" id="blogPost">
+      <div class="container">
+        <div class="blog-content" id="singleBlogPost"></div>
+      </div>
+    </section>
+    <!-- end of blog post content -->
+    </div>
+      </div>
+    </div>
+    </div>
+    <button id="likeBtn" onclick="incrementLikes()">Like</button>
+    <span id="likesCount">0</span>
 
-                Instead of declaring individual variables, such as number1, number2, ..., number99, you just declare one array variable number of integer type and use number1[0], number1[1], and ..., number1[99] to represent individual variables. Here, 0, 1, 2, .....99 are index associated with var variable and they are being used to represent individual elements available in the array.
+    <div id="commentsSection">
+        <h3>Comments</h3>
+        <div id="commentsList"></div>
+    </div>
 
-                All arrays consist of contiguous memory locations. The lowest address corresponds to the first element and the highest address to the last element.</p>
-          <div class="blg-img">
-            <img src="images/blog1.png" alt="" style="width:80%">
-          </div>
-          <div class="blg-article">
-            <img src="images/py.jpg">
-                          <p>Python is one of the most popular programming languages available today. It is widely used in many different business sectors such as programming, web development, machine learning, and data science. Given its widespread use, it's not surprising that Python has surpassed Java as the top programming language. In this article, you will learn about one of the most essential Python data structures: Python arrays.
-              Here’s an overview of the Python array topics we will be covering:
-              What is an Array?
-              Why Use an Array in Python?
-              Creating an Array
-              Accessing the Elements of an Array
-              Basic Array Operations
-              Insertion Operation
-              Deletion Operation
-              Array Concatenation
-              Looping Through an Array
-              Python Array V/s Lists
-              What Is an Array?
-              An array is a data structure that lets us hold multiple values of the same data type. Think of it as a container that holds a fixed number of the same kind of object. Python makes coding easier for programmers.
-              Why Use an Array in Python?
-              An array is used to store more than one value at a time. It can hold multiple values in a single variable, and also helps you reduce the overall size of the code. Arrays save time.
-</p>
-          </div>
-            </div>
-          </div>
-    </div>
-    <div class="card">
-            <div class="sed">
-              <center>137<img src="images/like.png" class="icon">45<img src="images/com.png" class="icon"></center>
-            </div><hr><br><br>
-            <div class="showup">
-              <center><form>
-                <input type="textarea" style="padding: 10px;"> <input type="submit" name="" value="add comment" style="width: 10%;background-color:#005191; border:none; padding: 10px;">
-              </form></center>
-            </div><br>
-            <center><div class="seco" style="margin:auto; display: flex; background-color: teal; color: white;">
-              <img src="images/circle.png" alt="author-image" width="100"><p>I really love this content and I really wish you will keep providing good things like this one</p>
-            </div>
-            <div class="seco" style="margin:auto; display: flex; background-color: teal; color: white;">
-              <img src="images/circle.png" alt="author-image" width="100"><p>This content is helpful</p>
-            </div>
-            <div class="seco" style="margin:auto; display: flex; background-color: teal; color: white;">
-              <img src="images/circle.png" alt="author-image" width="100"><p>it realy helps me to clearly understand arrays</p>
-            </div></p></center>
-    </div>
-  </div>
-  <div class="rightcolumn">
-    <div class="card">
-          <div class="seb">
-            <center><input type="text"><button>Subscribe</button></center>
-          </div>
-    </div>
-    <div class="card">
-      <h3>Popular Post</h3>
-      <div ><a><p>How to become a good developer</p></a></div>
-      <div ><a><p>how to sort an array</p></a></div>
-      <div ><a><p>python datastructures and algorithm</p></a></div>
-    </div>
-    <div class="card">
-      <h3>Follow Me</h3>
-      <div class="footer-social">
-    <a href="#"><i class='bx bxl-facebook' ></i></a>
-    <a href="#"><i class='bx bxl-twitter' ></i></a>
-    <a href="#"><i class='bx bxl-instagram' ></i></a>
-    <a href="#"><i class='bx bxl-youtube' ></i></a>
-</div>
+    <div id="commentForm">
+        <h3>Add a Comment</h3>
+        <form onsubmit="addComment(event)">
+            <label for="username">Your Name:</label>
+            <input type="text" id="username" required>
+            <br>
+            <label for="comment">Your Comment:</label>
+            <textarea id="comment" required></textarea>
+            <br>
+            <button type="submit">Submit Comment</button>
+        </form>
     </div>
   </div>
 </div>
 
 <div class="footer">
-                  <div class="footer-social">
-                    <a href="#"><i class='bx bxl-facebook' ></i></a>
-                    <a href="#"><i class='bx bxl-twitter' ></i></a>
-                    <a href="#"><i class='bx bxl-instagram' ></i></a>
-                    <a href="#"><i class='bx bxl-youtube' ></i></a>
-                </div>
+    <div class="footer-social">
+      <a href="#"><i class='bx bxl-facebook' ></i></a>
+      <a href="#"><i class='bx bxl-twitter' ></i></a>
+      <a href="#"><i class='bx bxl-instagram' ></i></a>
+      <a href="#"><i class='bx bxl-youtube' ></i></a>
+  </div>
 </div>
 
 </body>
+</html>
+
+    <script>
+      function displaySingleBlogPost() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get("id");
+        const storedData = JSON.parse(localStorage.getItem("postData")) || [];
+        const singleBlogPostDiv = document.getElementById("singleBlogPost");
+
+        if (postId !== null && postId >= 0 && postId < storedData.length) {
+          const postData = storedData[postId];
+
+          // Create HTML elements to display the single blog post
+          const singleBlogPostContent = document.createElement("div");
+          singleBlogPostContent.classList.add("single-blog-item");
+
+          const postDate = postData.date ? postData.date : "No date available";
+
+          singleBlogPostContent.innerHTML = `
+                    <div class="single-blog-img">
+                        <img src="${postData.img}" alt="${postData.title}" class="bimg">
+                    </div>
+                    <div class="single-blog-text">
+                        <h2>${postData.title}</h2>
+                        <span>${postDate}</span>
+                        <p>${postData.content}</p>
+                    </div>
+                `;
+
+          // Append the singleBlogPostContent to the singleBlogPostDiv
+          singleBlogPostDiv.appendChild(singleBlogPostContent);
+        } else {
+          singleBlogPostDiv.innerHTML = "<p>Invalid blog post ID.</p>";
+        }
+      }
+
+      // Call the function to display the single blog post
+      displaySingleBlogPost();
+
+        // Check if local storage has likes and comments data
+        let likesCount = localStorage.getItem('likes') || 0;
+        let commentsList = JSON.parse(localStorage.getItem('comments')) || [];
+
+        // Display initial likes count
+        document.getElementById('likesCount').innerText = `Likes: ${likesCount}`;
+
+        // Function to increment likes
+        function incrementLikes() {
+            likesCount++;
+            localStorage.setItem('likes', likesCount);
+            document.getElementById('likesCount').innerText = `Likes: ${likesCount}`;
+            //alert('Liked! Total Likes: ' + likesCount);
+        }
+
+        // Function to add comments
+        function addComment(event) {
+            event.preventDefault();
+            let username = document.getElementById('username').value;
+            let commentText = document.getElementById('comment').value;
+
+            if (username && commentText) {
+                commentsList.push({ username, comment: commentText });
+                localStorage.setItem('comments', JSON.stringify(commentsList));
+                displayComments();
+                alert('Comment added!');
+                
+                // Clear the form fields after submitting
+                document.getElementById('username').value = '';
+                document.getElementById('comment').value = '';
+            }
+        }
+
+        // Function to display comments
+        function displayComments() {
+            let commentsContainer = document.getElementById('commentsList');
+            commentsContainer.innerHTML = '';
+
+            commentsList.forEach(commentObj => {
+                let commentElement = document.createElement('div');
+                commentElement.classList.add('comment');
+
+                let avatarElement = document.createElement('div');
+                avatarElement.classList.add('avatar');
+                // Placeholder for avatar - You can replace it with the user's actual avatar
+                avatarElement.innerHTML = '<i class="fas fa-user"></i>';
+                
+                let contentElement = document.createElement('div');
+                contentElement.innerHTML = `<strong>${commentObj.username}</strong>: ${commentObj.comment}`;
+
+                commentElement.appendChild(avatarElement);
+                commentElement.appendChild(contentElement);
+                commentsContainer.appendChild(commentElement);
+            });
+        }
+
+        // Display initial comments
+        displayComments();
+    </script>
+  </body>
 </html>

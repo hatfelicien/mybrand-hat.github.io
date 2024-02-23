@@ -18,22 +18,57 @@
     <a href="message.html">Messages</a>
     <a href="article.html">Article</a>
     <a href="add.html">Add Article</a>
+    <a href="subscribers.html">Subscribers</a>
     <a href="login.html">Logout</a>
   </nav>
 
   <div class="content">
     <div class="card">
-                            <div class="row">
-                        <div class="column">
-                          <div class="card">
-                            <img src="images/comments.png">
-                            <h3>comment</h3>
-                            <p>4 unread comments</p>
-                          </div>
-                        </div>
-    </div>
+      <div id="adminDashboard">
+        <h3>Admin Dashboard</h3>
+        <div id="adminCommentsList"></div>
+      </div>
+    </div></div></div>
   <footer>
     &copy; 2024 Admin Dashboard
   </footer>
-
 </html>
+<script>
+  // Check if local storage has comments data
+  let commentsList = JSON.parse(localStorage.getItem("comments")) || [];
+
+  // Function to delete a comment
+  function deleteComment(id) {
+    const isConfirmed = confirm(
+      "Are you sure you want to delete this comment?"
+    );
+    if (isConfirmed) {
+      commentsList = commentsList.filter((comment) => comment.id !== id);
+      localStorage.setItem("comments", JSON.stringify(commentsList));
+      displayAdminDashboard();
+    }
+  }
+
+  // Function to display admin dashboard
+  function displayAdminDashboard() {
+    let adminCommentsList = document.getElementById("adminCommentsList");
+    adminCommentsList.innerHTML = "";
+
+    commentsList.forEach((commentObj) => {
+      let adminCommentElement = document.createElement("div");
+      adminCommentElement.classList.add("admin-comment");
+
+      adminCommentElement.innerHTML = `
+                <strong>${commentObj.username}</strong>: ${commentObj.comment}
+                <span class="admin-delete-btn" onclick="deleteComment(${commentObj.id})">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+            `;
+
+      adminCommentsList.appendChild(adminCommentElement);
+    });
+  }
+
+  // Display initial admin dashboard
+  displayAdminDashboard();
+</script>

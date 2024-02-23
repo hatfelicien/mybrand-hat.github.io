@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+<link rel="stylesheet" href="./css/dash.css">
+</head>
+<body>
+
+  <header>
+    <h1>Admin Dashboard</h1>
+  </header>
+
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="comments.html">Comment</a>
+    <a href="message.html">Messages</a>
+    <a href="article.html">Article</a>
+    <a href="add.html">Add Article</a>
+    <a href="subscribers.html">Subscribers</a>
+    <a href="login.html">Logout</a>
+  </nav>
+
+  <div class="content">
+    <div class="card">
+      <div id="adminDashboard">
+        <div id="subscriptionsList">
+            <h3>Subscriptions</h3>
+            <ul id="subscribersList"></ul>
+            <p id="errormsg"></p>
+        </div>
+      </div>
+    </div></div></div>
+  <footer>
+    &copy; 2024 Admin Dashboard
+  </footer>
+</html>
+<script>
+    // Function to display subscriptions
+    function displaySubscriptions() {
+        let subscriptionsList = document.getElementById('subscribersList');
+        subscriptionsList.innerHTML = '';
+
+        // Check if local storage has subscriptions data
+        let subscriptions = JSON.parse(localStorage.getItem('subscriptions')) || [];
+
+        subscriptions.forEach(subscription => {
+            let listItem = document.createElement('li');
+            listItem.textContent = subscription.email;
+            subscriptionsList.appendChild(listItem);
+        });
+    }
+
+    // Display initial subscriptions
+    displaySubscriptions();
+</script>

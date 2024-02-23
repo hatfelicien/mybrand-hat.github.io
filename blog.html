@@ -1,90 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>myblog</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Font awesome icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="css/blog.css">
-</head>
-<body>
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/blog.css" />
+  </head>
+  <body>
     <!-- header -->
     <header>
-        <nav class="navbar">
-            <div class="container">
-                <a href="index.html" class="navbar-brand">hatfeli</a>
-                <div class="navbar-nav">
-                    <a href="index.html">back to home</a>
-                </div>
-            </div>
-        </nav>
+      <nav class="navbar">
+        <div class="container">
+          <a href="index.html" class="navbar-brand">hatfeli</a>
+          <div class="navbar-nav">
+            <a href="index.html">back to home</a>
+          </div>
+        </div>
+      </nav>
     </header>
     <!-- end of header -->
-    
+
     <!-- blog -->
     <section class="blog" id="blog">
-        <div class="container">
-            <div class="title">
-                <h2>Welcome to my Blog</h2>
-                <div class="seb">
-                    <center><input type="text"><button>Search</button></center>
-                </div>
-            </div>
-            <div class="blog-content" id="blogPosts"></div>
+      <div class="container">
+        <div class="title">
+          <center><h2>Welcome to my Blog</h2></center>
+          <div class="seb">
+            <center>
+            <div id="subscribeForm">
+              <form onsubmit="subscribeToNewsletter(event)">
+              <input type="email" id="email"/><button type="submit">Subscribe</button>
+                <p class="errormsg"></p>
+
+              </form>
+            </center>
+          </div>
         </div>
+        <div class="blog-content" id="blogPosts"></div>
+      </div>
     </section>
     <!-- end of blog -->
-    
+
     <!-- footer -->
     <footer>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-        </div>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
     </footer>
     <!-- end of footer -->
 
     <script>
       function displayBlogPosts() {
-          const storedData = JSON.parse(localStorage.getItem('postData')) || [];
-          const blogPostsDiv = document.getElementById('blogPosts');
-  
-          if (storedData.length > 0) {
-              for (let i = 0; i < storedData.length; i++) {
-                  const postData = storedData[i];
-  
-                  // Create HTML elements to display the blog post
-                  const blogPostDiv = document.createElement('div');
-                  blogPostDiv.classList.add('blog-item');
-  
-                  // Check if date property is defined
-                  const postDate = postData.date ? postData.date : 'No date available';
-  
-                  blogPostDiv.innerHTML = `
+        const storedData = JSON.parse(localStorage.getItem("postData")) || [];
+        const blogPostsDiv = document.getElementById("blogPosts");
+
+        if (storedData.length > 0) {
+          for (let i = 0; i < storedData.length; i++) {
+            const postData = storedData[i];
+
+            // Create HTML elements to display the blog post
+            const blogPostDiv = document.createElement("div");
+            blogPostDiv.classList.add("blog-item");
+
+            // Check if date property is defined
+            const postDate = postData.date
+              ? postData.date
+              : "No date available";
+
+            blogPostDiv.innerHTML = `
                       <div class="blog-img">
                           <img src="${postData.img}" alt="${postData.title}">
                       </div>
                       <div class="blog-text">
                           <h2>${postData.title}</h2>
-                          <span>${postDate}</span>
+                          
                           <!-- Update the href attribute to include the post ID -->
                           <a href="blogpost.html?id=${i}">Read More</a>
                       </div>
                   `;
-  
-                  // Append the blogPostDiv to the blogPostsDiv
-                  blogPostsDiv.appendChild(blogPostDiv);
-              }
-          } else {
-              blogPostsDiv.innerHTML = '<p>No blog posts available.</p>';
+
+            // Append the blogPostDiv to the blogPostsDiv
+            blogPostsDiv.appendChild(blogPostDiv);
           }
+        } else {
+          blogPostsDiv.innerHTML = "<p>No blog posts available.</p>";
+        }
       }
-  
+
       // Call the function to display the blog posts
       displayBlogPosts();
-  </script>
-</body>
+      // Function to subscribe to the newsletter
+      function subscribeToNewsletter(event) {
+        event.preventDefault();
+        let email = document.getElementById("email").value;
+
+        if (email) {
+          // Check if local storage has subscriptions data
+          let subscriptions =
+            JSON.parse(localStorage.getItem("subscriptions")) || [];
+
+          // Check if the email is not already subscribed
+          if (!subscriptions.find((sub) => sub.email === email)) {
+            subscriptions.push({ email });
+            localStorage.setItem(
+              "subscriptions",
+              JSON.stringify(subscriptions)
+            );
+            alert("Subscribed successfully!");
+          } else {
+            document.getElementById("errormsg").innerHTML = "This email is already subscribed.";
+            alert("This email is already subscribed.");
+          }
+
+          // Clear the form field after subscribing
+          document.getElementById("email").value = "";
+        }
+      }
+    </script>
+  </body>
 </html>
