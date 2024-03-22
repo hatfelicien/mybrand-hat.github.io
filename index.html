@@ -222,7 +222,7 @@ In time you want to hire me or cantact me for bussiness my door is always open f
       <span id="messageError" class="error"></span>
   </div>
   <div class="button">
-      <input type="button" value="Send Now" onclick="validateForm()">
+      <button type="submit">Send Now</button>
   </div>
 </form>
     </div>
@@ -242,62 +242,57 @@ In time you want to hire me or cantact me for bussiness my door is always open f
 </div>
 <script src="js/script.js"></script>
 <script>
-  function validateForm() {
-      // Validate email using regular expression
-      var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      var emailInput = document.getElementById('email');
-      var emailError = document.getElementById('emailError');
+  const myForm = document.getElementById("myForm");
 
-      // Validate name
-      var nameInput = document.getElementById('name');
-      var nameError = document.getElementById('nameError');
+  myForm.onsubmit = async (e) => {
+    e.preventDefault();
+    await validateForm();
+  };
 
-      // Validate message
-      var messageInput = document.getElementById('message');
-      var messageError = document.getElementById('messageError');
+  async function validateForm() {
+    // Reset error messages
+    document.getElementById("nameError").textContent = "";
+    document.getElementById("emailError").textContent = "";
+    document.getElementById("messageError").textContent = "";
 
-      // Reset previous error messages
-      nameError.textContent = '';
-      emailError.textContent = '';
-      messageError.textContent = '';
+    // Get form inputs
+    var name = document.getElementById("name").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var message = document.getElementById("message").value.trim();
 
-      // Check name
-      if (nameInput.value.trim() === '') {
-          nameError.textContent = 'Name is required';
-          return;
+    // Form data
+    var formData = {
+      username: name,
+      email: email,
+      content: message
+    };
+
+    try {
+      const response = await fetch('https://mybrand-backend-s7by.onrender.com/message/new', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        // Message sent successfully
+        alert("Message sent successfully");
+        // Clear form inputs
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("message").value = "";
+      } else {
+        throw new Error('Failed to send message');
       }
-
-      // Check email
-      if (!emailRegex.test(emailInput.value)) {
-          emailError.textContent = 'Please enter a valid email address.';
-          return;
-      }
-
-      // Check message
-      if (messageInput.value.trim() === '') {
-          messageError.textContent = 'Message is required';
-          return;
-      }
-
-      // Get form data
-      var formData = {
-          name: nameInput.value,
-          email: emailInput.value,
-          message: messageInput.value
-      };
-
-      // Get existing contact data from local storage
-      var existingContacts = JSON.parse(localStorage.getItem('contacts')) || [];
-
-      // Add new contact to the array
-      existingContacts.push(formData);
-
-      // Save the updated contacts array to local storage
-      localStorage.setItem('contacts', JSON.stringify(existingContacts));
-
-      alert('Form submitted successfully!');
-      document.getElementById('myForm').reset();
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error, e.g., display error message to the user
+      alert("Failed to send message. Please try again later.");
+    }
   }
 </script>
+
   </body>
 </html>

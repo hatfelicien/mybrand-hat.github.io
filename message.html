@@ -1,102 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
-<link rel="stylesheet" href="./css/dash.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Messages</title>
+    <link rel="stylesheet" href="./css/dash.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Admin Dashboard - Messages</h1>
+    </header>
 
-  <header>
-    <h1>Admin Dashboard</h1>
-  </header>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="comments.html">Comment</a>
+      <a href="message.html">Messages</a>
+      <a href="article.html">Article</a>
+      <a href="add.html">Add Article</a>
+      <a href="subscribers.html">Subscribers</a>
+      <a href="#" id="logout">Logout</a>
+    </nav>
 
-  <nav>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="comments.html">Comment</a>
-    <a href="message.html">Messages</a>
-    <a href="article.html">Article</a>
-    <a href="add.html">Add Article</a>
-    <a href="subscribers.html">Subscribers</a>
-    <a href="login.html">Logout</a>
-  </nav>
+    <div class="content">
+      <div class="card">
+        <main class="admin-content">
+          <div id="contactList"></div>
+        </main>
+      </div>
+    </div>
 
-  <div class="content">
-    <div class="card">
-  <main class="admin-content">
-      <div id="contactList"></div>
-      
-  </main>
-</div></div>
-  <footer class="admin-footer">
+    <footer class="admin-footer">
       <p>&copy; 2024 Admin Dashboard</p>
-  </footer>
+    </footer>
 
-  <script>
-      // Function to display contact data
-      function displayContacts() {
-          // Get existing contact data from local storage
-          var existingContacts = JSON.parse(localStorage.getItem('contacts')) || [];
-
-          // Get the contactList div
-          var contactListDiv = document.getElementById('contactList');
-
-          // Display contact data
-          if (existingContacts.length > 0) {
-              for (var i = 0; i < existingContacts.length; i++) {
-                  var contact = existingContacts[i];
-
-                  // Create a container for each contact
-                  var contactContainer = document.createElement('div');
-                  contactContainer.classList.add('contact-container');
-
-                  // Display contact details
-                  contactContainer.innerHTML = `
-                      <p><strong>Name:</strong> ${contact.name}</p>
-                      <p><strong>Email:</strong> ${contact.email}</p>
-                      <p><strong>Message:</strong> ${contact.message}</p>
-                      <button class="del" onclick="deleteContact(${i})">Delete</button>
-                      <button class="up" onclick="replyToContact('${contact.email}')">Reply</button>
-                      <hr>
-                  `;
-
-                  // Append the contactContainer to contactListDiv
-                  contactListDiv.appendChild(contactContainer);
-              }
-          } else {
-              // Display a message if no contacts are available
-              contactListDiv.innerHTML = '<p>No contacts available.</p>';
-          }
+    <script>
+      function getToken() {
+        return localStorage.getItem("mytoken");
       }
 
-      // Function to delete a contact
-      function deleteContact(index) {
-          // Get existing contact data from local storage
-          var existingContacts = JSON.parse(localStorage.getItem('contacts')) || [];
-
-          // Remove the contact at the specified index
-          existingContacts.splice(index, 1);
-
-          // Save the updated contacts array to local storage
-          localStorage.setItem('contacts', JSON.stringify(existingContacts));
-
-          // Refresh the displayed contacts
-          displayContacts();
+      function redirectToLogin() {
+        window.location.href = "login.html";
       }
 
-      // Function to reply to a contact (for demonstration purposes)
-      function replyToContact(email) {
-          alert('Replying to ' + email);
-          // Add your reply functionality here
+      function fetchMessages() {
+        const token = getToken();
+        if (!token) {
+          redirectToLogin();
+          return;
+        }
+
+        fetch("http://localhost:8080/message/all", {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Failed to fetch messages");
+            }
+          })
+          .then((data) => {
+            const contactList = document.getElementById("contactList");
+            contactList.innerHTML = "";
+
+            data.message.forEach((message) => {
+              const messageElement = document.createElement("div");
+              messageElement.textContent = `Email: ${message.email}, Content: ${message.content}`;
+
+              const deleteButton = document.createElement("button");
+              deleteButton.textContent = "Delete";
+              deleteButton.classList.add("del");
+
+              deleteButton.addEventListener("click", function () {
+                deleteMessage(message._id);
+              });
+
+              messageElement.appendChild(deleteButton);
+
+              contactList.appendChild(messageElement);
+            });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }
 
-      // Call the function to display contacts when the page loads
-      window.onload = function () {
-          displayContacts();
-      };
-  </script>
-</div>
-</div>
-</body>
+      function deleteMessage(messageId) {
+        const token = getToken();
+        if (!token) {
+          redirectToLogin();
+          return;
+        }
+
+        fetch(`http://localhost:8080/message/delete/${messageId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Failed to delete message");
+            }
+          })
+          .then((data) => {
+            console.log(data.Message);
+            fetchMessages();
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        fetchMessages();
+      });
+
+      document.getElementById("logout").addEventListener("click", function (e) {
+        e.preventDefault();
+        localStorage.removeItem("mytoken");
+        redirectToLogin();
+      });
+    </script>
+  </body>
 </html>

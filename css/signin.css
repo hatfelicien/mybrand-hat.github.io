@@ -73,23 +73,3 @@ li a:hover:not(.active) {
 .active {
   background-color: #45a2db;
 }
-/* Styling for the overlay */
-.overlay2 {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  align-items: center;
-  justify-content: center;
-}
-
-/* Styling for the popup */
-.popup {
-  background: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}

@@ -19,7 +19,8 @@
     <a href="article.html">Article</a>
     <a href="add.html">Add Article</a>
     <a href="subscribers.html">Subscribers</a>
-    <a href="login.html">Logout</a>
+    <a href="#" id="logout">Logout</a>
+
   </nav>
 
   <div class="content">
@@ -54,53 +55,27 @@
   <footer>
     &copy; 2024 Admin Dashboard
   </footer>
-
 <script>
-const storedData = localStorage.getItem('postData');
-
-// Check if there is any stored data
-if (storedData) {
-    // Parse the stored data (assuming it's an array)
-    const articles = JSON.parse(storedData);
-
-    // Get the count of articles
-    const articleCount = articles.length;
-
-    // Display the count in the HTML
-    document.getElementById('articleCount').innerHTML = `Total Articles: ${articleCount}`;
-} else {
-    // Display a message if no articles found
-    document.getElementById('articleCount').innerHTML = 'you have articles. create some articles';
-}
-// Function to count all messages in local storage
-function countMessages() {
-    // Get existing contact data from local storage
-    var existingContacts = JSON.parse(localStorage.getItem('contacts')) || [];
-
-    // Get the count element
-    var countElement = document.getElementById('count');
-
-    // Display the total number of messages
-    countElement.textContent = existingContacts.length;
-}
-
-// Call the function to count messages when the page loads
-window.onload = function () {
-    countMessages();
-};
-
-// Check if local storage has comments data
-let commentsList = JSON.parse(localStorage.getItem("comments")) || [];
-
-// Display comment counter
-let commentCounter = document.getElementById("commentCounter");
-commentCounter.textContent = `Total Comments: ${commentsList.length}`;
-
-// Navigate to the admin dashboard
-let goToAdminDashboard = document.getElementById("goToAdminDashboard");
-goToAdminDashboard.onclick = function () {
-  window.location.href = "admin_dashboard.html";
-};
-    </script>
+  function getToken() {
+    return localStorage.getItem("mytoken");
+  }
+  
+  function redirectToLogin() {
+    window.location.href = "login.html";
+  }
+  
+  document.addEventListener("DOMContentLoaded", function() {
+    const token = getToken();
+    if (!token) {
+      redirectToLogin();
+    }
+  });
+  
+  document.getElementById("logout").addEventListener("click", function(e) {
+    e.preventDefault();
+    localStorage.removeItem("mytoken");
+    redirectToLogin();
+  });
+  </script>
 
 </html>

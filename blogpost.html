@@ -268,100 +268,88 @@ button:hover {
 </html>
 
     <script>
-      function displaySingleBlogPost() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const postId = urlParams.get("id");
-        const storedData = JSON.parse(localStorage.getItem("postData")) || [];
-        const singleBlogPostDiv = document.getElementById("singleBlogPost");
+function displaySingleBlogPost() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get("id");
 
-        if (postId !== null && postId >= 0 && postId < storedData.length) {
-          const postData = storedData[postId];
+    fetch(`http://localhost:8080/blogs/single/${postId}`)
+        .then(response => response.json())
+        .then(data => {
+            const singleBlogPostDiv = document.getElementById("singleBlogPost");
+            if (data.Message === "Blog found") {
+                const blogData = data.blog;
+                const postDate = blogData.date ? blogData.date : "No date available";
 
-          // Create HTML elements to display the single blog post
-          const singleBlogPostContent = document.createElement("div");
-          singleBlogPostContent.classList.add("single-blog-item");
+                // display a blog
+                const singleBlogPostContent = document.createElement("div");
+                singleBlogPostContent.classList.add("single-blog-item");
 
-          const postDate = postData.date ? postData.date : "No date available";
-
-          singleBlogPostContent.innerHTML = `
+                singleBlogPostContent.innerHTML = `
                     <div class="single-blog-img">
-                        <img src="${postData.img}" alt="${postData.title}" class="bimg">
+                        <img src="http://localhost:8080/${blogData.image}" alt="${blogData.title}" class="bimg">
                     </div>
                     <div class="single-blog-text">
-                        <h2>${postData.title}</h2>
+                        <h2>${blogData.title}</h2>
                         <span>${postDate}</span>
-                        <p>${postData.content}</p>
+                        <p>${blogData.desc}</p>
                     </div>
                 `;
 
-          // Append the singleBlogPostContent to the singleBlogPostDiv
-          singleBlogPostDiv.appendChild(singleBlogPostContent);
-        } else {
-          singleBlogPostDiv.innerHTML = "<p>Invalid blog post ID.</p>";
-        }
-      }
-
-      // Call the function to display the single blog post
-      displaySingleBlogPost();
-
-        // Check if local storage has likes and comments data
-        let likesCount = localStorage.getItem('likes') || 0;
-        let commentsList = JSON.parse(localStorage.getItem('comments')) || [];
-
-        // Display initial likes count
-        document.getElementById('likesCount').innerText = `Likes: ${likesCount}`;
-
-        // Function to increment likes
-        function incrementLikes() {
-            likesCount++;
-            localStorage.setItem('likes', likesCount);
-            document.getElementById('likesCount').innerText = `Likes: ${likesCount}`;
-            //alert('Liked! Total Likes: ' + likesCount);
-        }
-
-        // Function to add comments
-        function addComment(event) {
-            event.preventDefault();
-            let username = document.getElementById('username').value;
-            let commentText = document.getElementById('comment').value;
-
-            if (username && commentText) {
-                commentsList.push({ username, comment: commentText });
-                localStorage.setItem('comments', JSON.stringify(commentsList));
-                displayComments();
-                alert('Comment added!');
                 
-                // Clear the form fields after submitting
-                document.getElementById('username').value = '';
-                document.getElementById('comment').value = '';
+                singleBlogPostDiv.appendChild(singleBlogPostContent);
+            } else {
+                singleBlogPostDiv.innerHTML = "<p>Blog not found.</p>";
             }
-        }
+        })
+        .catch(error => {
+            console.error("Error fetching blog post:", error);
+        });
+}
 
-        // Function to display comments
-        function displayComments() {
-            let commentsContainer = document.getElementById('commentsList');
-            commentsContainer.innerHTML = '';
 
-            commentsList.forEach(commentObj => {
-                let commentElement = document.createElement('div');
-                commentElement.classList.add('comment');
+        // // Function to add comments
+        // function addComment(event) {
+        //     event.preventDefault();
+        //     let username = document.getElementById('username').value;
+        //     let commentText = document.getElementById('comment').value;
 
-                let avatarElement = document.createElement('div');
-                avatarElement.classList.add('avatar');
-                // Placeholder for avatar - You can replace it with the user's actual avatar
-                avatarElement.innerHTML = '<i class="fas fa-user"></i>';
+        //     if (username && commentText) {
+        //         commentsList.push({ username, comment: commentText });
+        //         localStorage.setItem('comments', JSON.stringify(commentsList));
+        //         displayComments();
+        //         alert('Comment added!');
                 
-                let contentElement = document.createElement('div');
-                contentElement.innerHTML = `<strong>${commentObj.username}</strong>: ${commentObj.comment}`;
+        //         // Clear the form fields after submitting
+        //         document.getElementById('username').value = '';
+        //         document.getElementById('comment').value = '';
+        //     }
+        // }
 
-                commentElement.appendChild(avatarElement);
-                commentElement.appendChild(contentElement);
-                commentsContainer.appendChild(commentElement);
-            });
-        }
+        // // Function to display comments
+        // function displayComments() {
+        //     let commentsContainer = document.getElementById('commentsList');
+        //     commentsContainer.innerHTML = '';
 
-        // Display initial comments
-        displayComments();
+        //     commentsList.forEach(commentObj => {
+        //         let commentElement = document.createElement('div');
+        //         commentElement.classList.add('comment');
+
+        //         let avatarElement = document.createElement('div');
+        //         avatarElement.classList.add('avatar');
+        //         // Placeholder for avatar - You can replace it with the user's actual avatar
+        //         avatarElement.innerHTML = '<i class="fas fa-user"></i>';
+                
+        //         let contentElement = document.createElement('div');
+        //         contentElement.innerHTML = `<strong>${commentObj.username}</strong>: ${commentObj.comment}`;
+
+        //         commentElement.appendChild(avatarElement);
+        //         commentElement.appendChild(contentElement);
+        //         commentsContainer.appendChild(commentElement);
+        //     });
+        // }
+
+        // // Display initial comments
+        // displayComments();
     </script>
   </body>
 </html>

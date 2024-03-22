@@ -1,4 +1,4 @@
-const name = document.getElementById("name");
+/*const name = document.getElementById("name");
 const password = document.getElementById("password");
 const form = document.getElementById("form");
 const errorElement = document.getElementById("error");
@@ -209,4 +209,48 @@ function validateLogin() {
   } else {
     document.getElementById("errormsg").innerHTML = "Invalid email or password";
   }
+}*/
+function validateLogin() {
+  var email = document.getElementById("loginEmail").value;
+  var password = document.getElementById("loginPassword").value;
+
+  // HTTP POST request 
+  fetch('http://localhost:8080/users/login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        email: email,
+        password: password
+    }),
+  })
+  .then(response => {
+    console.log(response)
+    if (response.ok) {
+        return response.json();
+    } else {
+        throw new Error('Invalid email or password');
+    }
+  })
+  .then(data => {
+    // Check if token exists
+    if (data && data.token) {
+      // Store the token 
+      localStorage.setItem("mytoken", data.token);
+      console.log(data.token);
+
+      // Redirect user 
+      window.location.href = "dashboard.html";
+    } else {
+      throw new Error('Token not found in response');
+    }
+  })
+  .catch(error => {
+    document.getElementById("errormsg").textContent = error.message;
+    console.error('Error:', error);
+  });
 }
+
+
+

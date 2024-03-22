@@ -27,26 +27,64 @@
           <h3>Add new article here!</h3>
 
 <div class="cont">
-    <form action="article.html" onsubmit="return validateForm()">
-        <input type="text" id="title" name="title" placeholder="Title for the post">
-        <div id="errorTitle" class="error"></div>
-
-        <input type="text" id="tag" name="tags" placeholder="Enter tags">
-        <div id="errorTag" class="error"></div>
-
-        <input type="file" id="img" name="img" accept="image/*">
-        <div id="errorImg" class="error"></div>
-
-        <textarea id="content" placeholder="Enter your content" oninput="updateCharCount()"></textarea>
-        <div id="errorContent" class="error"></div>
-        <div id="charCount">Character Count: 0</div>
-
-        <input type="text" id="references" name="references" placeholder="Enter references">
-
+    <form id="blogForm" enctype="multipart/form-data">
+        <input type="text" id="title" name="title" placeholder="Title for the post" required>
+        <input type="text" id="desc" name="tags" placeholder="Enter tags" required>
+        <input type="file" id="image" name="image" required>
+        <!--<textarea id="content" name="content" placeholder="Enter your content" required></textarea>
+        <input type="text" id="references" name="references" placeholder="Enter references">-->
         <input type="submit" value="Submit">
     </form>
 </div>
-        </main>
-        <script src="js/login.js"></script>
-    </body>
+</main>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const blogForm = document.getElementById("blogForm");
+    const title = document.getElementById("title");
+    const desc = document.getElementById("desc");
+    const image = document.getElementById("image");
+
+
+
+    blogForm.addEventListener("submit", function(event) {
+        event.preventDefault(); 
+        
+const data = new FormData()
+  data.append("title", title.value)
+  data.append("desc", desc.value)
+  data.append("image", image.files[0])
+  console.log(Array.from(data))
+        function redirectToLogin() {
+              window.location.href = "login.html";}
+        const token = localStorage.getItem("mytoken");
+        if (!token) {
+            redirectToLogin();
+            return;
+        }
+
+        fetch(`http://localhost:8080/blogs/new`, {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            body: data
+        })
+        .then(response => {
+            console.log(response)
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to add new blog');
+            }
+        })
+        .then(data => {
+            console.log(data.Message);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+});
+</script>
+</body>
 </html>
