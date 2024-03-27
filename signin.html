@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign In Form</title>
-    <link rel="stylesheet" href="css/signin.css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/signin.css" />
+  </head>
+  <body>
     <nav>
-        <ul>
-            <li><a>Hatfeli Designer</a></li>
-            <li style="float:right"><a class="active" href="index.html">back to Home</a></li>
-          </ul>
-          </nav>
+      <ul>
+        <li><a>Hatfeli Designer</a></li>
+        <li style="float: right">
+          <a class="active" href="index.html">back to Home</a>
+        </li>
+      </ul>
+    </nav>
     <div class="my-container">
-    <form action="" method="post" id="form">
+      <form action="" method="post" id="form">
         <h2>Sign In</h2>
         <center><h3 id="errormsg" class="error"></h3></center>
         <div>
-            <label for="name">Username:</label>
-            <input type="text" id="name" name="name">
-            <div id="errorName" class="error"></div>
+          <label for="name">Username:</label>
+          <input type="text" id="name" name="name" />
+          <div id="errorName" class="error"></div>
         </div>
         <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email">
-            <div id="errorEmail" class="error"></div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" />
+          <div id="errorEmail" class="error"></div>
         </div>
         <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
-            <div id="errorPassword" class="error"></div>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" />
+          <div id="errorPassword" class="error"></div>
         </div>
         <div>
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword">
-            <div id="errorConfirmPassword" class="error"></div>
+          <label for="confirmPassword">Confirm Password:</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" />
+          <div id="errorConfirmPassword" class="error"></div>
         </div>
-        <button type="button" onclick="validateForm()">Sign In</button><br>
+        <button type="button" onclick="validateForm()">Sign In</button><br />
         <a href="login.html">Back to login</a>
-    </form>
-</div>
+      </form>
+    </div>
     <script src="js/signup.js"></script>
-</body>
+  </body>
 </html>

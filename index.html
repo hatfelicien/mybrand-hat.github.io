@@ -178,7 +178,6 @@ here’s a bit more about me</p>
                 </div>
             </div>
 <!-- blog-->
-
   <!-- contact us page -->
  <div class="contactside" id="contact">
   <div class="contact-container">
@@ -209,6 +208,9 @@ In time you want to hire me or cantact me for bussiness my door is always open f
  Here there are ways to reach out to me ; fill free to click one of them.You will get response in less than 24 hours.
  Your Sincerely;</p>
  <form id="myForm">
+  <div id="err">
+    <p id="display"></p>
+  </div>
   <div>
       <input type="text" id="name" placeholder="Enter your name">
       <span id="nameError" class="error"></span>
@@ -278,7 +280,7 @@ In time you want to hire me or cantact me for bussiness my door is always open f
 
       if (response.ok) {
         // Message sent successfully
-        alert("Message sent successfully");
+        document.getElementById("display").innerHTML = "Message sent successfully";
         // Clear form inputs
         document.getElementById("name").value = "";
         document.getElementById("email").value = "";
@@ -289,7 +291,7 @@ In time you want to hire me or cantact me for bussiness my door is always open f
     } catch (error) {
       console.error('Error:', error);
       // Handle error, e.g., display error message to the user
-      alert("Failed to send message. Please try again later.");
+      document.getElementById("display").innerHTML = "Failed to send message. Please try again later.";
     }
   }
 </script>

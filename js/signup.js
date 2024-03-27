@@ -1,39 +1,63 @@
-function validateForm() {
-    // Validation logic here
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-    let confirmPassword = document.getElementById("confirmPassword").value;
+async function validateForm() {
+  // Reset error messages
+  document.getElementById("errormsg").textContent = "";
+  document.getElementById("errorName").textContent = "";
+  document.getElementById("errorEmail").textContent = "";
+  document.getElementById("errorPassword").textContent = "";
+  document.getElementById("errorConfirmPassword").textContent = "";
 
-    // Basic validation (you can enhance this as needed)
-    if (name.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
-        
-        document.getElementById("errormsg").innerHTML ="All fields are required";
-        return;
+  // Get form inputs
+  var name = document.getElementById("name").value.trim();
+  var email = document.getElementById("email").value.trim();
+  var password = document.getElementById("password").value.trim();
+  var confirmPassword = document.getElementById("confirmPassword").value.trim();
 
+  // Validate form inputs (you can add more validation if needed)
+
+  if (!name || !email || !password || !confirmPassword) {
+    document.getElementById("errormsg").textContent =
+      "Please fill in all fields";
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    document.getElementById("errorConfirmPassword").textContent =
+      "Passwords do not match";
+    return;
+  }
+
+  // Form data
+  var formData = {
+    name: name,
+    email: email,
+    password: password,
+  };
+
+  try {
+    const response = await fetch(
+      "https://mybrand-backend-s7by.onrender.com/users/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Registration successful
+      document.getElementById("errormsg").textContent =
+        "Registration successful";
+    } else {
+      throw new Error(data.Message || "Failed to register");
     }
-
-    if (password !== confirmPassword) {
-        document.getElementById("errorConfirmPassword").innerHTML = "password do not match";
-        return;
-    }
-
-    // Store user data in local storage
-    let user = {
-        name: name,
-        email: email,
-        password: password
-    };
-
-    // Retrieve existing users or initialize an empty array
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    
-    // Add the new user
-    users.push(user);
-
-    // Save the updated users array to local storage
-    localStorage.setItem('users', JSON.stringify(users));
-
-    alert("User registered successfully!");
-    window.location.href = "login.html";
+  } catch (error) {
+    console.error("Error:", error);
+    // Handle error, e.g., display error message to the user
+    document.getElementById("errormsg").textContent =
+      error.message || "Failed to register";
+  }
 }
